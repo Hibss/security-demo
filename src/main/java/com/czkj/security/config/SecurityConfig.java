@@ -31,9 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity security) throws Exception {
         security.authorizeRequests().anyRequest().authenticated()
-                .antMatchers("/level1/**").hasRole("VIP1")
-                .antMatchers("/level2/**").hasRole("VIP2")
-                .antMatchers("/level3/**").hasRole("VIP3")
+                .antMatchers("/level1/**").hasAuthority("VIP1")
+                .antMatchers("/level2/**").hasAuthority("VIP2")
+                .antMatchers("/level3/**").hasAuthority("VIP3")
                 .and()
                 .csrf().disable()
                 .formLogin()
