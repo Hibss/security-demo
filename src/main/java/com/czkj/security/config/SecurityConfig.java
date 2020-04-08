@@ -1,26 +1,18 @@
 package com.czkj.security.config;
 
-import com.czkj.security.dao.UserMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
-import org.springframework.security.web.savedrequest.RequestCache;
-import org.springframework.security.web.savedrequest.SavedRequest;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -54,11 +46,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(logoutSuccessHandler())
         ;
     }
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
-        auth.eraseCredentials(false);
-    }
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(new UserDetailsServiceImpl()).passwordEncoder(passwordEncoder());
+//        auth.eraseCredentials(false);
+//    }
     @Bean
     public BCryptPasswordEncoder passwordEncoder() { //密码加密
         return new BCryptPasswordEncoder(4);
@@ -88,15 +80,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // 自定义认证规则
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication().passwordEncoder(passwordEncoder())
+//                .withUser("user1").password(passwordEncoder().encode("123")).roles("VIP1")
+//                .and()
+//                .withUser("user2").password(passwordEncoder().encode("123")).roles("VIP1", "VIP2")
+//                .and()
+//                .withUser("user3").password(passwordEncoder().encode("123")).roles("VIP1", "VIP2", "VIP3");
+//
+//
+//    }
+
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().passwordEncoder(passwordEncoder())
-                .withUser("user1").password(passwordEncoder().encode("123")).roles("VIP1")
-                .and()
-                .withUser("user2").password(passwordEncoder().encode("123")).roles("VIP1", "VIP2")
-                .and()
-                .withUser("user3").password(passwordEncoder().encode("123")).roles("VIP1", "VIP2", "VIP3");
+    public void configure(WebSecurity web) throws Exception {
+        //放行静态资源被拦截
+        web.ignoring().antMatchers("/css/**");
+        web.ignoring().antMatchers("/js/**");
+        web.ignoring().antMatchers("/images/**");
     }
 
+
+    public static void main(String[] args) {
+        System.out.println(new BCryptPasswordEncoder(4).encode("123"));
+    }
 
 }

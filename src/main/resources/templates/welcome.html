@@ -16,7 +16,7 @@
     </form>
 </div>
 
-<div sec:authorize="hasRole('VIP1')">
+<div sec:authorize="hasAuthority('VIP1')">
 <h3>兽人族</h3>
 <ul>
     <li><a th:href="@{/level1/1}">萨尔</a></li>
@@ -24,7 +24,7 @@
     <li><a th:href="@{/level1/3}">杜隆坦</a></li>
 </ul>
 </div>
-<div sec:authorize="hasRole('VIP2')">
+<div sec:authorize="hasAuthority('VIP2')">
 <h3>人族</h3>
 <ul>
     <li><a th:href="@{/level2/1}">瓦里安</a></li>
@@ -32,7 +32,7 @@
     <li><a th:href="@{/level2/3}">麦迪文</a></li>
 </ul>
 </div>
-<div sec:authorize="hasRole('VIP3')">
+<div sec:authorize="hasAuthority('VIP3')">
 <h3>古神</h3>
 <ul>
     <li><a th:href="@{/level3/1}">克苏恩</a></li>

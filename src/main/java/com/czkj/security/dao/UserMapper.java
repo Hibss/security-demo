@@ -2,6 +2,7 @@ package com.czkj.security.dao;
 
 import com.czkj.security.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface UserMapper {
@@ -16,4 +17,7 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    @Select("select * from t_user where mobile = #{username}")
+    User findByMobile(String username);
 }

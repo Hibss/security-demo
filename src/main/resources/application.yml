@@ -8,8 +8,8 @@ spring:
     cache: false
     mode: HTML
   datasource:
-        url: jdbc:mysql://192.168.2.101:3306/group_offical?autoReconnect=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
-        username: szmc_offical
-        password: AGx2d@7A<1+s
+        url: jdbc:mysql://192.168.2.101:3306/test?autoReconnect=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+        username: szmt_dev
+        password: Szmt@2019#8888
         driver-class-name: com.mysql.jdbc.Driver
         type: com.alibaba.druid.pool.DruidDataSource
